@@ -128,6 +128,7 @@ let takeLibrito = () =>{
 }
 
 let returnLibrito = () => {
+
     const aDevolver = books.filter(book => book.stock == 0)
 
     let list = `\n Los libros que puedes devolver son: `
@@ -149,22 +150,52 @@ let returnLibrito = () => {
     switch(ansDevolver){
         case 1:
             let id = parseInt(prompt(list))
-            books.find
-
-
-
+            let ind = books.findIndex(element => element.id === id)
+            books[ind].stock = 1;
+            alert(`Gracias por devolver el Libro ${books[ind].title}, ${books[ind].author} estaría muy contento/a`)
+            break
         case 2:
+            alert("Ahhh Pero sos alto delincuente")
+            break
 
         default: 
-        alert("No era un opción!")
+            alert("No era un opción!")
+            break
+    }
+}
+
+let showFilterResult = array =>{
+    let available = "Los libros disponibles son: "
+    for (const element of array) {
+        available += `\n - ${element.title} del año ${element.year}...${element.gender} `  
     }
     
+    alert(available)
 
+}
 
+let genderFilter = () => {
+    const policialG = books.filter( book => book.gender === "Policial")
+    const adventureG = books.filter( book => book.gender === "Aventura")
+    const terrorG = books.filter( book => book.gender === "Terror")
 
-
-    
-
+    let ansGender = parseInt(prompt("Tenemos los siguientes géneros: 1- Policial, 2-Aventura, 3-Terror... Elija uno ingresando el número:"))
+    switch (ansGender) {
+        case 1:
+            alert("Buscará todos los libros de género policial! ")
+            showFilterResult(policialG)
+            break
+        case 2: 
+            alert("Buscará todos los libros de género aventura! ")
+            showFilterResult(adventureG)
+            break
+        case 3: 
+            alert("Buscará todos los libros de género Terror! ")
+            showFilterResult(terrorG)
+            break
+        default:
+            alert("No es una opción válida!... intente nuevamente")
+    }
 }
 
 const book0 = new Book(0, "Vampire Kickers", "Edgado Alan Oboe", 1992, "Terror", 1)
@@ -184,6 +215,7 @@ const books= [book0, book1, book2, book3, book4, book5, book6, book7, book8, boo
 const bookCart = []
 
 let offeredBooks = `Tenemos los siguientes libros: \n`
+
 takeLibrito()
 returnLibrito()
-   
+genderFilter()
